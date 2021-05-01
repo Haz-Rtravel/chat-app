@@ -3,6 +3,7 @@ import React from "react";
 import {
   StyleSheet,
   Text,
+  TextInput,
   View,
   FlatList,
   ScrollView,
@@ -13,16 +14,71 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import { SampleScreen } from "../AwesomeProject/SampleScreen";
+
+import loadingScreen from "../AwesomeProject/screens/loading/loadingScreen"
+
 import welcomeScreen from "../AwesomeProject/screens/welcomeScreen";
+
+import friendlistScreen from "../AwesomeProject/screens/main/friendlistScreen"
+
+import chatroomlistScreen from "../AwesomeProject/screens/main/chatroomlistScreen"
+import chatroomScreen from "../AwesomeProject/screens/chatroom/chatroomScreen"
+
+import settingScreen from "../AwesomeProject/screens/main/settingScreen"
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
-function HomeScreen() {
+function Welcome() {
   return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Text>Home Screen</Text>
-    </View>
+      <Stack.Navigator>
+        <Stack.Screen name="Welcome" component={welcomeScreen} />
+        <Stack.Screen name="Home" component={Home} />
+      </Stack.Navigator>
+  )
+}
+
+function Friendlist() {
+  return (
+      <Stack.Navigator
+      screenOptions={{
+        headerShown: false
+      }}>
+        <Stack.Screen name="friendlistScreen" component={friendlistScreen} />
+      </Stack.Navigator>
+  )
+}
+
+function Chatroom() {
+  return (
+      <Stack.Navigator
+      screenOptions={{
+        headerShown: false
+      }}>
+        <Stack.Screen name="chatroomlistScreen" component={chatroomlistScreen} />
+        
+      </Stack.Navigator>
+  )
+}
+
+function Setting() {
+  return (
+      <Stack.Navigator
+      screenOptions={{
+        headerShown: false
+      }}>
+        <Stack.Screen name="settingScreen" component={settingScreen} />
+      </Stack.Navigator>
+  )
+}
+
+function Home() {
+  return (
+      <Tab.Navigator>
+        <Tab.Screen name="Friendlist" component={Friendlist} />
+        <Tab.Screen name="Chatroom" component={Chatroom} />
+        <Tab.Screen name="Setting" component={Setting} />
+      </Tab.Navigator>
   );
 }
 
@@ -34,97 +90,19 @@ function SettingsScreen() {
   );
 }
 
-var data = [
-  { id: 1, chatroom_name: "Chatroom Name", latest_message: "This is Latest Message!", members: [1,2,3,4] },
-  { id: 1, chatroom_name: "Chatroom Name", latest_message: "This is Latest Message!", members: [1,2,3,4] },
-  { id: 1, chatroom_name: "Chatroom Name", latest_message: "This is Latest Message!", members: [1,2,3,4] },
-  { id: 1, chatroom_name: "Chatroom Name", latest_message: "This is Latest Message!", members: [1,2,3,4] },
-  { id: 1, chatroom_name: "Chatroom Name", latest_message: "This is Latest Message!", members: [1,2,3,4] },
-  { id: 1, chatroom_name: "Chatroom Name", latest_message: "This is Latest Message!", members: [1,2,3,4] },
-  { id: 1, chatroom_name: "Chatroom Name", latest_message: "This is Latest Message!", members: [1,2,3,4] },
-  { id: 1, chatroom_name: "Chatroom Name", latest_message: "This is Latest Message!", members: [1,2,3,4] },
-  { id: 1, chatroom_name: "Chatroom Name", latest_message: "This is Latest Message!", members: [1,2,3,4] },
-  { id: 1, chatroom_name: "Chatroom Name", latest_message: "This is Latest Message!", members: [1,2,3,4] },
-  { id: 1, chatroom_name: "Chatroom Name", latest_message: "This is Latest Message!", members: [1,2,3,4] },
-]
-
-var render_Chatroom_List = ({ item }) => {
-  return (
-    <>
-      <TouchableOpacity
-          style={{
-            height: 65,
-            width: "100%",
-            paddingHorizontal: 10,
-            flexDirection: "row",
-          }}
-        >
-          <View style={{ width: 60, height: "100%", padding: 10 }}>
-            <View
-              style={{
-                height: 45,
-                width: 45,
-                backgroundColor: "#ccc",
-                borderRadius: 10,
-              }}
-            ></View>
-          </View>
-
-          <View
-            style={{
-              flex: 1,
-              height: "100%",
-              justifyContent: "center",
-              padding: 10,
-            }}
-          >
-            <View style={{ flex: 1, justifyContent: "center" }}>
-              
-              <View style={{ flex: 1, backgroundColor: '#ccc', justifyContent: 'center', paddingHorizontal: 5, borderRadius: 5}}>
-                <Text style={{ fontWeight: "bold", fontSize: 16 }}>
-                  Chatroom Name
-                </Text>
-              </View>
-              
-            </View>
-
-            <View
-              style={{ flex: 1, justifyContent: "center"}}
-            >
-              <View style={{flex: 1, justifyContent: 'center', paddingHorizontal: 5}}>
-                <Text style={{ fontSize: 12 }}>Latest Message</Text>
-              </View>
-              
-            </View>
-          </View>
-
-          <View style={{width: 40, height: '100%', justifyContent: 'center', alignItems: 'center'}}>
-            <View style={{borderRadius: 25, width: 30, height: 30, backgroundColor: '#ff0606', justifyContent: 'center', alignItems: 'center'}}>
-              <Text style={{fontWeight: '600', color: '#FFF'}}>10</Text>
-            </View>
-          </View>
-        </TouchableOpacity>
-    </>
-  )
-}
-
 export default class App extends React.Component {
   render() {
     return (
-      <View style={{ flex: 1, backgroundColor: "#fff" }}>
-        <View style={{ height: 100, width: "100%", backgroundColor: "#ccc" }}>
-          {/* Sample Title */}
-        </View>
-
-        <ScrollView style={{ height: "100%" }}>
-          <FlatList
-            data={data}
-            renderItem={render_Chatroom_List}
-            keyExtractor={(item) => item.id}
-          />
-        </ScrollView>
-        
-      </View>
+      <NavigationContainer>
+      <Stack.Navigator
+      screenOptions={{
+        headerShown: false
+      }}>
+        <Stack.Screen name="loading" component={loadingScreen} />
+        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="chatroomScreen" component={chatroomScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
     );
   }
 }
